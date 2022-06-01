@@ -1,0 +1,8 @@
+name: RutheniumCore
+version: '${project.version}'
+main: me.silkyfalcon.rutheniumcore.RutheniumCore
+api-version: 1.16
+authors: [ SilkyFalcon ]
+website: github.com/silkyfalcon
+depend:
+  - WorldGuard

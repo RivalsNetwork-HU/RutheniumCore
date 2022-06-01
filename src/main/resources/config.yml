@@ -1,0 +1,8 @@
+# Author: SilkyFalcon#8240
+# Github: github.com/silkyfalcon
+
+# The EnderPearlRemover is a remover that deletes
+# ender pearls left in the air after a specified time.
+# Interval = ms
+enderpearl-remover:
+  interval: 8
