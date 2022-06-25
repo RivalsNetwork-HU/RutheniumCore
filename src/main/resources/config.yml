@@ -1,0 +1,71 @@
+# Author: SilkyFalcon#8240
+# Github: github.com/silkyfalcon
+
+# The EnderPearlRemover is a remover that deletes
+# ender pearls left in the air after a specified time.
+# Interval = ms
+enderpearl-remover:
+  interval: 8
+
+# Disabled_worlds: The worlds that there should
+# be no damage, yet there is still
+# pvp, and the potion effects aren't added.
+# Removed effects: The effects that get removed
+# when teleporting to one of the disabled_worlds
+# Damage: The damage done to players in disabled_worlds
+# the damage is defined as a double
+sumo:
+  disabled_worlds:
+    - "spawn"
+  removed_effects:
+    - "SPEED"
+    - "STRENGTH"
+  damage: 0.0
+
+
+# The messages of the base command
+commands:
+  invalid-args: "&cHIBA! Helytelen használat! /rutheniumcore [reload]"
+  no-permission: "&cHIBA! Nincs jogod ehhez!"
+  reload-message: "&c&lRUTHENIUM &e» &fConfig újratölve!"
+
+# Enabled: Whether the schedule is enabled or not
+# Time: The time of the day it should run at
+# Commands: The commands that should be run by console.
+schedulers:
+  1:
+    time:
+      - "18:00:00"
+      - "18:30:00"
+    commands:
+      - "eco give * 10"
+  2:
+    time:
+      - "18:00:00"
+    commands:
+      - "eco give * 20"
+
+# Cooldown: The cooldown of the item
+# Messages: Set the messages of the switcherball
+# Item: Configure the SwitcherBall item
+# Blocked-worlds the worlds, the item should be disabled in.
+switcherball:
+  cooldown: 10
+  range: 25
+  messages:
+    cooldown: "&cEzt nem használhatod még %cooldown% másodpercig."
+    switch: "&fHelyet cseréltél vele: %player%"
+    blocked-world-message: "&cSajnálom, de ezt itt nem teheted meg!"
+    usage: "&cHIBA! Helytelen használat! /switcherball [give] <játékos>"
+    not-in-range: "&cSikertelen csere! Nem vagytok %range% blokkos rádiuszban!"
+  item:
+    name: "&6&lSwitcher Ball"
+    enchanted: true
+    lore:
+      - ""
+      - "&7Használd ezt, hogy az"
+      - "&7ellenfeleddel helyet cserélj!"
+  blocked-worlds:
+    - "lobby"
+
+
