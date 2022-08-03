@@ -4,18 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>me.silkyfalcon</groupId>
-    <artifactId>RutheniumCore</artifactId>
+    <groupId>me.SilkyFalcon</groupId>
+    <artifactId>rutheniumcore</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>RutheniumCore</name>
+    <name>Rutheniumcore</name>
 
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>github.com/silkyfalcon</url>
 
     <build>
         <plugins>
@@ -40,21 +39,6 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/**</exclude>
-                                        <exclude>com/google/**</exclude>
-                                        <exclude>mozilla/**</exclude>
-                                        <exclude>unirest/**</exclude>
-                                        <exclude>org/apache/commons/codec/**</exclude>
-                                        <exclude>org/apache/commons/logging/**</exclude>
-                                        <exclude>org/slf4j</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
                         </configuration>
                     </execution>
                 </executions>
@@ -77,10 +61,6 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
-        <repository>
-            <id>sk89q-repo</id>
-            <url>https://maven.enginehub.org/repo/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -88,12 +68,6 @@
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sk89q.worldguard</groupId>
-            <artifactId>worldguard-bukkit</artifactId>
-            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
