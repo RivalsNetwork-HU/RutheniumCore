@@ -7,7 +7,6 @@ import me.silkyfalcon.rutheniumcore.config.YamlStorage;
 import me.silkyfalcon.rutheniumcore.modules.arrow.ArrowStuff;
 import me.silkyfalcon.rutheniumcore.modules.eotw.Timer;
 import me.silkyfalcon.rutheniumcore.modules.hwid.HardwareID;
-import me.silkyfalcon.rutheniumcore.utils.ChatSentry;
 import me.silkyfalcon.rutheniumcore.utils.MainHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,7 +36,6 @@ public final class RutheniumCore extends JavaPlugin {
         getCommand("carrow").setExecutor(new ArrowStuff());
         getCommand("timer").setExecutor(new Timer());
 
-        new ChatSentry().onChatSentryCheck(this);
         new MainHandler().onStartup(this);
         try {
             new HardwareID().skidChecker(this);
