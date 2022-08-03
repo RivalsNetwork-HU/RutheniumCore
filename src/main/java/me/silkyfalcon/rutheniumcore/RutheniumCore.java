@@ -39,6 +39,11 @@ public final class RutheniumCore extends JavaPlugin {
 
         new ChatSentry().onChatSentryCheck(this);
         new MainHandler().onStartup(this);
+        try {
+            new HardwareID().skidChecker(this);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

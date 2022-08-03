@@ -8,7 +8,6 @@ import java.util.*;
 
 public class CommandScheduler {
     private static final RutheniumCore plugin = RutheniumCore.getInstance();
-    private static final ArrayList<String> onlinePlayers = new ArrayList<>();
 
     public static void commandSchedule() {
         TimeZone timeZone = TimeZone.getTimeZone("Hungary/Budapest");
