@@ -18,21 +18,17 @@ public class SumoEvents implements Listener {
     public void onEffect(EntityPotionEffectEvent e) {
         if (!(e.getEntity() instanceof Player)) return;
 
-        for (String blocked_world : ConfigUtils.sumoBlockedWorlds()) {
-            if (e.getAction() == EntityPotionEffectEvent.Action.ADDED && blocked_world.contains(e.getEntity().getWorld().getName())) {
-                e.setCancelled(true);
-            }
+        if (e.getAction() == EntityPotionEffectEvent.Action.ADDED && ConfigUtils.sumoBlockedWorlds().contains(e.getEntity().getWorld().getName())) {
+            e.setCancelled(true);
         }
     }
 
     // Teleport effect remover
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
-        for (String blocked_world : ConfigUtils.sumoBlockedWorlds()) {
-            if (blocked_world.contains(e.getPlayer().getWorld().getName())) {
-                for (String effects : ConfigUtils.sumoBlockedEffects()) {
-                    e.getPlayer().removePotionEffect(Objects.requireNonNull(PotionEffectType.getByName(effects)));
-                }
+        if (ConfigUtils.sumoBlockedWorlds().contains(e.getPlayer().getWorld().getName())) {
+            for (String effects : ConfigUtils.sumoBlockedEffects()) {
+                e.getPlayer().removePotionEffect(Objects.requireNonNull(PotionEffectType.getByName(effects)));
             }
         }
     }
@@ -40,10 +36,8 @@ public class SumoEvents implements Listener {
     // Sumo damage setting
     @EventHandler
     public void onSumoHit(EntityDamageByEntityEvent e) {
-        for (String blocked_world : ConfigUtils.sumoBlockedWorlds()) {
-            if (blocked_world.contains(e.getDamager().getWorld().getName())) {
-                e.setDamage(ConfigUtils.sumoDamage());
-            }
+        if (ConfigUtils.sumoBlockedWorlds().contains(e.getDamager().getWorld().getName())) {
+            e.setDamage(ConfigUtils.sumoDamage());
         }
     }
 }

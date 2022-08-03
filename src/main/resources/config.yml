@@ -25,9 +25,20 @@ sumo:
 
 # The messages of the base command
 commands:
-  invalid-args: "&cHIBA! Helytelen használat! /rutheniumcore [reload]"
-  no-permission: "&cHIBA! Nincs jogod ehhez!"
-  reload-message: "&c&lRUTHENIUM &e» &fConfig újratölve!"
+  core:
+    invalid-args: "&cHIBA! Helytelen használat! /rutheniumcore [reload]"
+    no-permission: "&cHIBA! Nincs jogod ehhez!"
+    reload-message: "&c&lRUTHENIUM &e» &fConfig újratölve!"
+  switcherball:
+    invalid-args: "&cHIBA! Helytelen használat! /switcherball [give] (Játékos)"
+    no-permission: "&cHIBA! Nincs jogod ehhez!"
+    offline: "&cHIBA! Ez a játékos nem elérhető!"
+  arrow:
+    incorrect-usage: "&cNincsen ilyen névvel nyíl!"
+    invalid-args: "&c/carrow (Nyíl) (Játékos) (Szám)"
+    success: "&aTárgy sikeresen odaadva %player% játékosnak!"
+    fail: "&cTárgy lekérése sikertelen!"
+    no-permission: "&cHIBA! Nincs jogod ehhez!"
 
 # Enabled: Whether the schedule is enabled or not
 # Time: The time of the day it should run at
@@ -39,11 +50,45 @@ schedulers:
       - "18:30:00"
     commands:
       - "eco give * 10"
+
   2:
     time:
       - "18:00:00"
     commands:
       - "eco give * 20"
+    enabled: true
+
+
+# The configuration for custom arrows
+# Name: The name of the arrow
+# Color: The Color of the arrow from RGB
+# Lore: The lore of the arrow
+# Effects: The effects of the arrow
+arrows:
+  1:
+    name: "&4- &fTAG NYÍL &4-"
+    color:
+      red: 255
+      green: 0
+      blue: 0
+    lore:
+      - "&5-  &fFénylés: &730 másodperc"
+      - "&5-  &aÉmelygés: &76 másodperc"
+      - "&5-  &bGyorsaság: &75 másodperc"
+    effects:
+      - "GLOWING"
+      - "CONFUSION"
+      - "SPEED"
+    durations:
+      GLOWING: 30
+      CONFUSION: 5
+      SPEED: 6
+    powers:
+      GLOWING: 0
+      CONFUSION: 0
+      SPEED: 0
+    enchanted: true
+    hide_potions: true
 
 # Cooldown: The cooldown of the item
 # Messages: Set the messages of the switcherball
@@ -68,4 +113,41 @@ switcherball:
   blocked-worlds:
     - "lobby"
 
+
+# Eotw
+eotw:
+  enabled: false
+  message: "%player% meghalt! %remaining%"
+  kick-message: "&cKiestél!"
+  command: "playsound minecraft:patkany master @a ~ ~ ~ 1000"
+  players: 60
+  chat:
+    enabled: false
+    message: "#fb210e&lR#fb2b16&lu#fc351d&lt#fc3e25&lh#fc482c&le#fc5234&ln#fd5c3b&li#fd6543&lu#fd6f4a&lm &8» &fAz EOTW időpontjáról a discordon találhatsz pontosabb információkat."
+  timer:
+    title:
+      enabled: true
+      title-format: "&c%time%"
+      subtitle-format: ""
+      finish-title-enabled: true
+      finish-title-format: "&4&lRUTHENIUM - EOTW"
+      finish-subtitle-format: "&f&lSok sikert!"
+    finish:
+      commands:
+        - "bc Az EOTW elkezdődött!"
+      delay: 2 # The delay in ticks
+    bossbar:
+      enabled: true
+      format: "&4&lEOTW - IDŐ: &f%time%"
+      time-format: "%s%"
+
+voidspawn:
+  in-worlds:
+    - lobby
+  world: "lobby"
+  x: 53
+  y: 55
+  z: 71
+  pitch: 0
+  yaw: 0
 

@@ -8,14 +8,9 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class EnderPearlRemover implements Listener {
-    private RutheniumCore plugin;
-
-    public EnderPearlRemover(RutheniumCore plugin) {
-        this.plugin = plugin;
-    }
+    private static final RutheniumCore plugin = RutheniumCore.getInstance();
 
     @EventHandler
     public void onEnderSpawn(EntitySpawnEvent e) {
@@ -26,14 +21,9 @@ public class EnderPearlRemover implements Listener {
 
         Entity entityPearl = e.getEntity();
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (entityPearl != null) {
-                    entityPearl.remove();
-                }
-
-            }
-        }.runTaskLater(plugin, ConfigUtils.enderPearlRemoverCooldown() * 20L);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (entityPearl == null) return;
+            entityPearl.remove();
+        }, ConfigUtils.enderPearlRemoverCooldown() * 20L);
     }
 }

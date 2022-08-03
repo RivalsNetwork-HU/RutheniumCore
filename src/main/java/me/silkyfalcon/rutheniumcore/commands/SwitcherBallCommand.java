@@ -15,7 +15,7 @@ public class SwitcherBallCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length == 0) {
-            sender.sendMessage(ConfigUtils.invalidArgs());
+            sender.sendMessage(ConfigUtils.switcherBallInvalidArgs());
             return true;
         }
 
@@ -33,16 +33,19 @@ public class SwitcherBallCommand implements CommandExecutor {
 
         if (sender instanceof Player) {
             if (!sender.hasPermission("rutheniumcore.admin")) {
-                sender.sendMessage(ConfigUtils.noPermission());
+                sender.sendMessage(ConfigUtils.switcherBallNoPermission());
                 return true;
             }
 
             if (args[0].equalsIgnoreCase("give") && args.length == 2) {
                 Player t = Bukkit.getPlayerExact(args[1]);
+                if (t == null) {
+                    sender.sendMessage(ConfigUtils.switcherBallPlayerOffline());
+                    return true;
+                }
                 t.getInventory().addItem(ConfigUtils.switcherBallItem());
             }
         }
-
 
         return true;
     }

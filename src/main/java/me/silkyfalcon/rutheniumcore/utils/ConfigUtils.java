@@ -2,6 +2,9 @@ package me.silkyfalcon.rutheniumcore.utils;
 
 import me.silkyfalcon.rutheniumcore.RutheniumCore;
 import me.silkyfalcon.rutheniumcore.config.YamlColor;
+import me.silkyfalcon.rutheniumcore.modules.eotw.TimerMethod;
+import me.silkyfalcon.rutheniumcore.modules.scheduler.CommandScheduler;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -13,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigUtils {
-//    private static final RutheniumCore plugin = RutheniumCore.getInstance();
-    static final RutheniumCore plugin = RutheniumCore.getPlugin(RutheniumCore.class);
+    private static final RutheniumCore plugin = RutheniumCore.getPlugin(RutheniumCore.class);
+
 
     public static int enderPearlRemoverCooldown() {
         return plugin.getYamlStorage().getData().getInt("enderpearl-remover.interval");
@@ -32,24 +35,16 @@ public class ConfigUtils {
         return plugin.getYamlStorage().getData().getDouble("sumo.damage");
     }
 
-    public static String noPermission() {
-        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.no-permission"));
+    public static String coreNoPermission() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.core.no-permission"));
     }
 
-    public static String invalidArgs() {
-        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.invalid-args"));
+    public static String coreInvalidArgs() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.core.invalid-args"));
     }
 
     public static String reloadMessage() {
-        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.reload-message"));
-    }
-
-    public static String time() {
-        return plugin.getYamlStorage().getData().getString("schedule.time");
-    }
-
-    public static List<String> commands() {
-        return plugin.getYamlStorage().getData().getStringList("schedule.commands");
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.core.reload-message"));
     }
 
     // Switcherball item
@@ -70,8 +65,7 @@ public class ConfigUtils {
     }
 
     public static String switchMessage(Player p) {
-        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("switcherball.messages.switch")
-                .replace("%player%", p.getName()));
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("switcherball.messages.switch").replace("%player%", p.getName()));
     }
 
     public static String blockedWorldMessage() {
@@ -80,6 +74,18 @@ public class ConfigUtils {
 
     public static List<String> blockedWorlds() {
         return plugin.getYamlStorage().getData().getStringList("switcherball.blocked-worlds");
+    }
+
+    public static String switcherBallInvalidArgs() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.switcherball.invalid-args"));
+    }
+
+    public static String switcherBallNoPermission() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.switcherball.no-permission"));
+    }
+
+    public static String switcherBallPlayerOffline() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.switcherball.offline"));
     }
 
     public static int cd() {
@@ -106,6 +112,36 @@ public class ConfigUtils {
         switcherMeta.setLocalizedName("SWITCHER_BALL");
         switcherBall.setItemMeta(switcherMeta);
         return switcherBall;
+    }
+
+    public static String noConfigurationSection() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.arrow.incorrect-usage"));
+    }
+
+    public static String arrowNoPermission() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.arrow.incorrect-usage"));
+    }
+
+    public static String arrowInvalidArgs() {
+        return YamlColor.formatter(plugin.getYamlStorage().getData().getString("commands.arrow.invalid-args"));
+    }
+
+    public static String noTimerPermission() {
+        return YamlColor.formatter("&cNincs jogod ehhez!");
+    }
+
+    public static String timerInvalidArgs() {
+        return YamlColor.formatter("&cHelytelen használat!");
+    }
+
+    public static void reload() {
+        plugin.getYamlStorage().load();
+        plugin.reloadConfig();
+        Bukkit.getScheduler().cancelTasks(plugin);
+        CommandScheduler.timeCheck();
+        if (TimerMethod.currentBar != null) {
+            Bukkit.getOnlinePlayers().forEach(p -> p.hideBossBar(TimerMethod.currentBar));
+        }
     }
 
 }

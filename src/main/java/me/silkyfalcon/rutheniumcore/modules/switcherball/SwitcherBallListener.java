@@ -15,12 +15,8 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class SwitcherBallListener implements Listener {
+    private static final RutheniumCore plugin = RutheniumCore.getInstance();
     public final HashMap<UUID, Long> cooldown = new HashMap<>();
-    private final RutheniumCore plugin;
-
-    public SwitcherBallListener(RutheniumCore plugin) {
-        this.plugin = plugin;
-    }
 
     @EventHandler
     public void onSwitcherThrow(ProjectileLaunchEvent e) {
@@ -45,28 +41,22 @@ public class SwitcherBallListener implements Listener {
         if (!(e.getHitEntity() instanceof Player t)) return;
         if (e.getHitEntity() == p) return;
 
-        assert p != null;
-        if (t.getLocation().distanceSquared(p.getLocation()) <= plugin.getYamlStorage().getData().getDouble("switcherball.range")*plugin.getYamlStorage().getData().getDouble("switcherball.range")) {
+        if (t.getLocation().distanceSquared(p.getLocation()) <= plugin.getYamlStorage().getData().getDouble("switcherball.range") * plugin.getYamlStorage().getData().getDouble("switcherball.range")) {
             p.teleportAsync(t.getLocation());
             t.teleportAsync(p.getLocation());
             t.sendMessage(ConfigUtils.switchMessage(p));
             p.sendMessage(ConfigUtils.switchMessage(t));
+            return;
         }
-        else {
-            p.sendMessage(YamlColor.formatter(plugin.getYamlStorage().getData().getString("switcherball.messages.not-in-range")
-                    .replace("%range%", String.valueOf(plugin.getYamlStorage().getData().getDouble("switcherball.range")))));
-            t.sendMessage(YamlColor.formatter(plugin.getYamlStorage().getData().getString("switcherball.messages.not-in-range")
-                    .replace("%range%", String.valueOf(plugin.getYamlStorage().getData().getDouble("switcherball.range")))));
-        }
+        p.sendMessage(YamlColor.formatter(plugin.getYamlStorage().getData().getString("switcherball.messages.not-in-range").replace("%range%", String.valueOf(plugin.getYamlStorage().getData().getDouble("switcherball.range")))));
+        t.sendMessage(YamlColor.formatter(plugin.getYamlStorage().getData().getString("switcherball.messages.not-in-range").replace("%range%", String.valueOf(plugin.getYamlStorage().getData().getDouble("switcherball.range")))));
     }
 
     public void checkWorld(ProjectileLaunchEvent e, Player p) {
-        for (String blocked_worlds : ConfigUtils.blockedWorlds()) {
-            if (blocked_worlds.contains(e.getEntity().getWorld().getName())) {
-                p.sendMessage(ConfigUtils.blockedWorldMessage());
-                e.setCancelled(true);
-                return;
-            }
+        if (ConfigUtils.blockedWorlds().contains(e.getEntity().getWorld().getName())) {
+            p.sendMessage(ConfigUtils.blockedWorldMessage());
+            e.setCancelled(true);
+
         }
     }
 
@@ -78,7 +68,6 @@ public class SwitcherBallListener implements Listener {
             e.setCancelled(true);
 
             p.sendMessage(ConfigUtils.coolDownMessage().replace("%cooldown%", cd));
-
         }
     }
 }
